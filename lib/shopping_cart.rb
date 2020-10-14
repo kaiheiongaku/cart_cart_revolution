@@ -33,4 +33,31 @@ class ShoppingCart
       product.category == category
     end
   end
+
+  def percentage_occupied
+    ((total_number_of_products / @capacity.to_f) * 100).round(2)
+  end
+
+  def sorted_products_by_quantity
+    @products.sort_by do |product|
+      product.quantity
+    end.reverse
+  end
+
+  def category_keys
+    @products.map do |product|
+      product.category
+    end.uniq
+  end
+
+  def product_breakdown
+    product_hash = Hash[self.category_keys.collect {|item| [item, []]}]
+    product_hash.each do |category, products|
+      @products.each do |product|
+        if product.category == category
+          products << product
+        end
+      end
+    end
+  end
 end
