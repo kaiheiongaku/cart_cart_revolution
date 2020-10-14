@@ -97,6 +97,22 @@ class Test < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_category_keys
+    cart = ShoppingCart.new("King Soopers", "30items")
+    product1 = Product.new(:paper, 'toilet paper', 3.70, '10')
+    product2 = Product.new(:meat, 'chicken', 4.50, '2')
+    product3 = Product.new(:paper, 'tissue paper', 1.25, '1')
+    product4 = Product.new(:produce, 'apples', 0.99, '20')
+    cart.add_product(product1)
+    cart.add_product(product2)
+    cart.add_product(product3)
+    cart.add_product(product4)
+
+    assert_equal true, cart.category_keys.include?(:meat)
+    assert_equal 3, cart.category_keys.length
+    assert_equal Array, cart.category_keys.class
+  end
+
   def test_product_breakdown
     cart = ShoppingCart.new("King Soopers", "30items")
     product1 = Product.new(:paper, 'toilet paper', 3.70, '10')

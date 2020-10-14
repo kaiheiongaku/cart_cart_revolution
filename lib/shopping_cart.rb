@@ -51,13 +51,10 @@ class ShoppingCart
   end
 
   def product_breakdown
-    product_hash = Hash[self.category_keys.collect {|item| [item, []]}]
-    product_hash.each do |category, products|
-      @products.each do |product|
-        if product.category == category
-          products << product
-        end
-      end
+    category_hash = Hash[self.category_keys.collect {|item| [item, []]}]
+    category_hash.each do |category, products|
+      category_hash[category] = products_by_category(category)
     end
+    category_hash
   end
 end
